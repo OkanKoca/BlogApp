@@ -1,3 +1,4 @@
+using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
@@ -14,7 +15,14 @@ builder.Services.AddDbContext<BlogContext>(options =>
     options.UseNpgsql(connectionString);
 });
 
+builder.Services.AddScoped<IPostRepository, EfPostRepository>();
+builder.Services.AddScoped<ITagRepository, EfTagRepository>();
+builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
+
 var app = builder.Build();
+
+// Seed the database with test data
+SeedData.CreateTestDatas(app);
 
 // Configure the HTTP request pipeline.  
 if (!app.Environment.IsDevelopment())
@@ -34,5 +42,23 @@ app.UseAuthorization();
 app.MapControllerRoute(
    name: "default",
    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+        name : "post_details",
+        pattern: "posts/details/{url}",
+        defaults: new { controller = "Posts", action = "Details" }
+);
+
+app.MapControllerRoute(
+        name: "posts",
+        pattern: "posts/{url}",
+        defaults: new { controller = "Posts", action = "Details" }
+);
+
+app.MapControllerRoute(
+        name: "posts_by_tag",
+        pattern: "posts/tag/{tag}",
+        defaults: new { controller = "Posts", action = "Index" }
+);
 
 app.Run();

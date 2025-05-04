@@ -62,6 +62,9 @@ namespace BlogApp.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
@@ -69,6 +72,9 @@ namespace BlogApp.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Url")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
@@ -89,15 +95,13 @@ namespace BlogApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TagId"));
 
-                    b.Property<int?>("PostId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Text")
                         .HasColumnType("text");
 
-                    b.HasKey("TagId");
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
 
-                    b.HasIndex("PostId");
+                    b.HasKey("TagId");
 
                     b.ToTable("Tags");
                 });
@@ -110,12 +114,30 @@ namespace BlogApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
                     b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("PostTag", b =>
+                {
+                    b.Property<int>("PostsPostId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsTagId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PostsPostId", "TagsTagId");
+
+                    b.HasIndex("TagsTagId");
+
+                    b.ToTable("PostTag");
                 });
 
             modelBuilder.Entity("BlogApp.Entity.Comment", b =>
@@ -148,18 +170,24 @@ namespace BlogApp.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BlogApp.Entity.Tag", b =>
+            modelBuilder.Entity("PostTag", b =>
                 {
                     b.HasOne("BlogApp.Entity.Post", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("PostId");
+                        .WithMany()
+                        .HasForeignKey("PostsPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlogApp.Entity.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsTagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BlogApp.Entity.Post", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

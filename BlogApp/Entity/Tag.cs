@@ -4,6 +4,8 @@
     {
         public int TagId { get; set; }
         public string? Text { get; set; }
-        public List<Post> Posts = new List<Post>();
+        public string? Url { get; set; }
+        public List<Post> Posts { get; set; } = new List<Post>();
+
     }
 }

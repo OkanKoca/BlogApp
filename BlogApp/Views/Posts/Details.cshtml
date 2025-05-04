@@ -1,0 +1,72 @@
+﻿@model Post
+
+<div class="row">
+	<div class="col-lg-8">
+		<div class="bg-white p-4">
+			<h1 class="h4 mb-4"><b>@Model.Title</b> Post Details</h1>
+			<div class="card bg-transparent border-0 mb-3">
+				<div class="row">
+					<div class="col-4">
+						<img src="~/img/@Model.Image" class="img-fluid rounded" />
+					</div>
+					<div class="col-8">
+						<h5><a href="#" class="btn-link fw-bold">@Model.Title</a></h5>
+						<p class="text-muted">@Model.Content</p>
+						@foreach (var tag in Model.Tags.ToList())
+						{
+							<a href="/posts/tag/@tag.Url" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold"
+							style="text-decoration : none">
+								@tag.Text
+							</a>
+						}
+					</div>
+				</div>
+				<div class="bg-white mt-3">
+					<div class="card border-0">
+						<div class="card-header pb-0">
+							@Model.Comments.Count() Comments
+						</div>
+						<div class="card-body">
+							@foreach(var comment in Model.Comments)
+							{
+								<div class="my-4 d-flex">
+									<img src="/img/@comment.User.Image" class="avatar rounded-circle float-start me-3" 
+									style="width: 3rem; height: 3rem; object-fit:cover"/>
+									<div class="mb-2">
+										<h6>@comment.User.UserName</h6>
+										<span class="text-muted">@comment.PublishedOn</span>
+										<p>@comment.Text</p>
+									</div>
+								</div>
+							}
+							<hr class="my-4"/>
+							<div>
+								<h4>Add Comment</h4>
+								<form action="/posts/AddComment" method="post">
+									<input type="hidden" name="PostId" value="@Model.PostId" />
+									<div class="mb-3">
+										<label class="form-label" for="UserName">User Name</label>
+										<input type="text" class="form-control" id="UserName" name="UserName" placeholder="User Name"/>
+									</div>
+									<div class="mb-3">
+										<label class="form-label" for="Text">Comment</label>
+										<textarea type="text" class="form-control" id="Text" name="Text" placeholder="Your Comment" ></textarea>
+									</div>
+									<div class="mb-3">
+										<button type="submit" class="btn btn-primary">Comment</button>
+									</div>
+								</form>
+							</div>
+
+						</div>
+						</div>
+					</div>
+				</div>
+				<h3 class="my-3"></h3>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		@await Component.InvokeAsync("Tags")
+		@await Component.InvokeAsync("RecentPosts")
+	</div>
+</div>

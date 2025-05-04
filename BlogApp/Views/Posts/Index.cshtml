@@ -1,0 +1,43 @@
+﻿@* @model PostsAndTagsViewModel *@ @* tagler viewcomponent olduğu için artık post listesi de yeterli *@
+@model List<Post>
+
+<div class="row">
+	<div class="col-lg-8">
+		<div class="bg-white p-4">
+			<h1 class="h4 mb-4">Popular Posts</h1>
+			@foreach(var post in Model)
+			{
+				<div class="card bg-transparent border-0 mb-3">
+					<div class="row">
+						<div class="col-4">
+							<img src ="~/img/@post.Image" class="img-fluid rounded"/>
+						</div>
+						<div class="col-8">
+							<h5><a class="btn-link fw-bold" asp-action="Details" asp-route-url="@post.Url">@post.Title</a></h5>
+							<p class="text-muted">@post.Content</p>
+							@foreach (var tag in @post.Tags.ToList())
+							{
+								<a href="/posts/tag/@tag.Url" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold"
+								style="text-decoration : none">
+									@tag.Text
+								</a>
+							}
+						</div>
+					</div>
+				</div>
+				<h3 class="my-3"></h3>
+			}
+			<nav>
+				<ul class="pagination">
+					<li class="page-item"><a href="#" class="page-link">1</a></li>
+					<li class="page-item"><a href="#" class="page-link">2</a></li>
+					<li class="page-item"><a href="#" class="page-link">3</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		@await Component.InvokeAsync("Tags")
+		@await Component.InvokeAsync("RecentPosts")
+	</div>
+	</div>
