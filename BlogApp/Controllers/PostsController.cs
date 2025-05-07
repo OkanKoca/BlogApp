@@ -4,6 +4,7 @@ using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BlogApp.Controllers
 {
@@ -18,6 +19,7 @@ namespace BlogApp.Controllers
         }
         public async Task<IActionResult> Index(string tag)
         {
+            var claims = User.Claims;
             var posts = _postRepository.Posts;
 
             if (!string.IsNullOrEmpty(tag))
@@ -42,21 +44,21 @@ namespace BlogApp.Controllers
 
         public IActionResult AddComment(int PostId,string UserName, string Text)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            var avatar= User.FindFirstValue(ClaimTypes.UserData);
+
             var comment = new Comment
             {
                 PostId = PostId,
                 Text = Text,
                 PublishedOn = DateTime.UtcNow,
-                User = new User
-                {
-                    UserName = UserName,
-                    Image = "p1.jpg"
-                }
+                UserId = int.Parse(userId ?? "")
             };
 
             _commentRepository.CreateComment(comment);
 
-            return RedirectToAction("Details", new { url = _postRepository.Posts.FirstOrDefault(p => p.PostId == PostId).Url });
+            return RedirectToAction("Details", new { url = _postRepository.Posts.FirstOrDefault(p => p.PostId == PostId)!.Url });
         }
     }
 }

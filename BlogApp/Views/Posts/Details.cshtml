@@ -33,30 +33,35 @@
 									<img src="/img/@comment.User.Image" class="avatar rounded-circle float-start me-3" 
 									style="width: 3rem; height: 3rem; object-fit:cover"/>
 									<div class="mb-2">
-										<h6>@comment.User.UserName</h6>
-										<span class="text-muted">@comment.PublishedOn</span>
+										<h6 class="mb-0">@comment.User.UserName</h6>
+										<small class="text-muted">@comment.PublishedOn.ToLocalTime()</small>
 										<p>@comment.Text</p>
 									</div>
 								</div>
 							}
 							<hr class="my-4"/>
-							<div>
-								<h4>Add Comment</h4>
-								<form action="/posts/AddComment" method="post">
-									<input type="hidden" name="PostId" value="@Model.PostId" />
-									<div class="mb-3">
-										<label class="form-label" for="UserName">User Name</label>
-										<input type="text" class="form-control" id="UserName" name="UserName" placeholder="User Name"/>
-									</div>
-									<div class="mb-3">
-										<label class="form-label" for="Text">Comment</label>
-										<textarea type="text" class="form-control" id="Text" name="Text" placeholder="Your Comment" ></textarea>
-									</div>
-									<div class="mb-3">
-										<button type="submit" class="btn btn-primary">Comment</button>
-									</div>
-								</form>
-							</div>
+
+							@if (User.Identity!.IsAuthenticated)
+							{
+								<div>
+									<h4>Add Comment</h4>
+									<form action="/posts/AddComment" method="post">
+										<input type="hidden" name="PostId" value="@Model.PostId" />
+										<div class="mb-3">
+											<label class="form-label" for="Text">Comment</label>
+											<textarea type="text" class="form-control" id="Text" name="Text" placeholder="Your Comment"></textarea>
+										</div>
+										<div class="mb-3">
+											<button type="submit" class="btn btn-primary">Comment</button>
+										</div>
+									</form>
+								</div>
+							}
+							else
+							{
+								<p>You must login to add comment <a href="/users/login">Login</a></p>
+							}
+
 
 						</div>
 						</div>
@@ -66,7 +71,7 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
-		@await Component.InvokeAsync("Tags")
+		@* @await Component.InvokeAsync("Tags") *@
 		@await Component.InvokeAsync("RecentPosts")
 	</div>
 </div>
