@@ -52,6 +52,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "C# 10 Features",
                             Content = "C# 10 introduces several new features, including global using directives and file-scoped namespaces.",
+                            Description = "C# 10 Features",
                             Url = "csharp-10-features",
                             Image = "img1.jpg",
                             PublishedOn = DateTime.UtcNow.AddDays(-29),
@@ -67,6 +68,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "ASP.NET Core MVC",
                             Content = "ASP.NET Core MVC is a framework for building web applications using the Model-View-Controller pattern.",
+                            Description = "ASP.NET Core MVC",
                             Url = "aspnet-core-mvc",
                             Image = "img2.jpg",
                             PublishedOn = DateTime.UtcNow.AddDays(-50),
@@ -78,6 +80,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "Entity Framework Core",
                             Content = "Entity Framework Core is an ORM that enables .NET developers to work with databases using .NET objects.",
+                            Description = "Entity Framework Core",
                             Url = "entity-framework-core",
                             Image = "img3.jpg",
                             PublishedOn = DateTime.UtcNow.AddDays(-15),
@@ -89,6 +92,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "Docker for .NET Developers",
                             Content = "Docker simplifies the deployment process by containerizing .NET applications, making them portable and consistent across environments.",
+                            Description = "Docker for .NET Developers",
                             Url = "docker-for-dotnet-developers",
                             Image = "img4.jpg",
                             PublishedOn = DateTime.UtcNow.AddDays(-35),
@@ -100,6 +104,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         {
                             Title = "Minimal APIs in .NET 6",
                             Content = "Minimal APIs offer a lightweight way to build HTTP APIs with less ceremony and improved performance in .NET 6.",
+                            Description = "Minimal APIs in .NET 6",
                             Url = "minimal-apis-dotnet-6",
                             Image = "img5.jpg",
                             PublishedOn = DateTime.UtcNow.AddDays(-10),

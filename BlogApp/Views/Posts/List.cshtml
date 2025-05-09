@@ -1,0 +1,61 @@
+﻿@model List<Post>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="bg-white p-4">
+			<h1 class="h4 mb-4">Posts</h1>
+			<a class="btn btn-primary" asp-action="Create">Create Post</a>
+			<table class="table table-bordered table-hover mt-3">
+				<thead>
+					<tr>
+						<th class="text-center">Image</th>
+						<th class="text-center">ID</th>
+						<th class="text-center">Title</th>
+						<th class="text-center">Tags</th>
+						<th class="text-center">Is Active</th>
+						<th style="width: 150px;" class="text-center">Edit / Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var post in Model)
+					{
+						<tr>
+							<td style="width:200px;"><img src="/img/@post.Image"  class="img-fluid"/></td>
+							<td>@post.PostId</td>
+							<td>@post.Title</td>
+
+							@if(post.Tags == null)
+							{
+								<td></td>
+							}
+							else
+							{
+								<td>
+									<ul>
+										@foreach (var tag in post.Tags)
+										{
+											<li style="list-style-type:none;"><a class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold" style="text-decoration: none;">@tag.Text</a></li>
+										}
+									</ul>
+								</td>
+							}
+							<td>@post.IsActive</td>
+							<td>
+								<a class="btn btn-primary" asp-action="Edit" asp-route-id = "@post.PostId">Edit</a>
+								<a class="btn btn-danger" asp-action="Delete" asp-route-id="@post.PostId">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			
+			<nav>
+				<ul class="pagination">
+					<li class="page-item"><a href="#" class="page-link">1</a></li>
+					<li class="page-item"><a href="#" class="page-link">2</a></li>
+					<li class="page-item"><a href="#" class="page-link">3</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
