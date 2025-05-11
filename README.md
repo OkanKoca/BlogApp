@@ -1,6 +1,6 @@
 
 # 📝 BlogApp
-BlogApp, ASP.NET Core MVC teknolojisi kullanılarak geliştirilen tam özellikli bir blog platformudur. Kullanıcılar blog gönderileri oluşturabilir, düzenleyebilir, yorum yapabilir ve içerikleri görüntüleyebilir. Uygulama ayrıca kullanıcı yönetimi, kategori sistemi ve modern arayüz bileşenleri ile zenginleştirilmiştir.
+BlogApp, ASP.NET Core MVC teknolojisi kullanılarak geliştirilen bir blog platformudur. Kullanıcılar blog gönderileri oluşturabilir, düzenleyebilir, yorum yapabilir ve içerikleri görüntüleyebilir. Uygulama ayrıca kullanıcı yönetimi, kategori sistemi ve modern arayüz bileşenleri ile zenginleştirilmiştir.
 
 ## 🚀 Kullanılan Teknolojiler
 C# & ASP.NET Core MVC – Web uygulama framework ve kullanılan dil
