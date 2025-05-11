@@ -1,8 +1,8 @@
 
-#📝 BlogApp
+# 📝 BlogApp
 BlogApp, ASP.NET Core MVC teknolojisi kullanılarak geliştirilen tam özellikli bir blog platformudur. Kullanıcılar blog gönderileri oluşturabilir, düzenleyebilir, yorum yapabilir ve içerikleri görüntüleyebilir. Uygulama ayrıca kullanıcı yönetimi, kategori sistemi ve modern arayüz bileşenleri ile zenginleştirilmiştir.
 
-##🚀 Kullanılan Teknolojiler
+## 🚀 Kullanılan Teknolojiler
 C# & ASP.NET Core MVC – Web uygulama framework ve kullanılan dil
 
 Entity Framework Core – ORM ve veritabanı işlemleri
@@ -19,7 +19,7 @@ LINQ – Veri sorgulama işlemleri
 
 Dependency Injection – Servis yönetimi
 
-##🔧 Uygulama Özellikleri
+## 🔧 Uygulama Özellikleri
 🔐 Kullanıcı kayıt, giriş ve çıkış işlemleri
 
 ✍️ Blog gönderisi oluşturma, düzenleme, silme
@@ -36,10 +36,10 @@ Dependency Injection – Servis yönetimi
 
 🧩 Temiz ve modern kullanıcı arayüzü
 
-##🖼️ Uygulama görselleri
+## 🖼️ Uygulama görselleri
 
-<img src="screenshots/posts.png" alt="Gönderi Anasayfası" width="600"/>
-<img src="screenshots/postdetails.png" alt="Gönderi Detayları" width="600"/>
-<img src="screenshots/postedit.png" alt="Gönderi Düzenleme" width="600"/>
-<img src="screenshots/userposts.png" alt="Kullanıcının Gönderileri Sayfası" width="600"/>
-<img src="screenshots/profile.png" alt="Kullanıcı Profili" width="600"/>
+<img src="screenshots/posts.png" alt="Gönderi Anasayfası" width="800"/>
+<img src="screenshots/postdetails.png" alt="Gönderi Detayları" width="800"/>
+<img src="screenshots/postedit.png" alt="Gönderi Düzenleme" width="800"/>
+<img src="screenshots/userposts.png" alt="Kullanıcının Gönderileri Sayfası" width="800"/>
+<img src="screenshots/profile.png" alt="Kullanıcı Profili" width="800"/>
