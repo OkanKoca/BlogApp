@@ -120,5 +120,26 @@ namespace BlogApp.Controllers
             }
             return View();
         }
+
+        public IActionResult Profile(string username)
+        {
+            if(string.IsNullOrWhiteSpace(username))
+            {
+                return NotFound();
+            }
+
+            var user = _userRepository
+                .Users
+                .Include(u => u.Posts)
+                .Include(u => u.Comments)
+                .ThenInclude(c => c.Post)
+                .FirstOrDefault(u => u.UserName == username);
+
+            if (user == null) {
+                return NotFound();
+            }
+
+            return View(user);
+        }
     }
 }

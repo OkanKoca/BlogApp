@@ -14,10 +14,13 @@ namespace BlogApp.Controllers
     {
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
-        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository)
+        private readonly ITagRepository _tagRepository;
+        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository,
+            ITagRepository tagRepository)
         {
             _postRepository = postRepository;
             _commentRepository = commentRepository;
+            _tagRepository = tagRepository;
         }
         public async Task<IActionResult> Index(string? tag)
         {
@@ -39,6 +42,7 @@ namespace BlogApp.Controllers
                 return View(
                 await
                 _postRepository.Posts
+                .Include(p => p.User)
                 .Include(p => p.Tags)
                 .Include(p => p.Comments)
                 .ThenInclude(c => c.User)
@@ -111,19 +115,22 @@ namespace BlogApp.Controllers
             return View(await _postRepository.Posts.Include(p => p.Tags).ToListAsync());
         }
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id, int[] tagIds)
         {
             if(id == null)
             {
                 return NotFound();
             }
 
-            var post = _postRepository.Posts.FirstOrDefault(p => p.PostId == id);
+            var post = _postRepository.Posts.Include(p=> p.Tags).FirstOrDefault(p => p.PostId == id);
 
             if(post == null)
             {
                 return NotFound();
             }
+
+            ViewBag.Tags = _tagRepository.Tags.ToList();
+
             return View(new PostCreateViewModel
             {
                 PostId = post.PostId,
@@ -132,12 +139,13 @@ namespace BlogApp.Controllers
                 Title = post.Title,
                 Url = post.Url,
                 IsActive = post.IsActive,
+                Tags = post.Tags
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(PostCreateViewModel model)
+        public IActionResult Edit(PostCreateViewModel model, int[] tagIds)
         {
             if (ModelState.IsValid)
             {
@@ -152,7 +160,8 @@ namespace BlogApp.Controllers
                     Content = model.Content,
                     Description = model.Description,
                     Title = model.Title,
-                    Url = model.Url
+                    Url = model.Url,
+                    Tags = model.Tags
                 }; 
 
                 if (User.FindFirstValue(ClaimTypes.Role) == "Admin")
@@ -165,12 +174,31 @@ namespace BlogApp.Controllers
                     return NotFound();
                 }
 
-                _postRepository.UpdatePost(postToUpdate);
+                _postRepository.UpdatePost(postToUpdate, tagIds);
+                ViewBag.Tags = _tagRepository.Tags.ToList();
                 return RedirectToAction("List");
             }
 
             return View(model);
             
         }
+        [HttpGet]
+        [HttpPost]  
+        public IActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _postRepository.Posts.FirstOrDefault(p => p.PostId == id);
+
+            if (post == null) { 
+                return NotFound();
+            }
+
+            _postRepository.DeletePost(post);
+            return RedirectToAction("List");
+        } 
     }
 }

@@ -42,8 +42,11 @@
 							<td>@post.IsActive</td>
 							<td>
 								<a class="btn btn-primary" asp-action="Edit" asp-route-id = "@post.PostId">Edit</a>
-								<a class="btn btn-danger" asp-action="Delete" asp-route-id="@post.PostId">Delete</a>
+								<a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@post.PostId">Delete</a>
 							</td>
+
+							@await Component.InvokeAsync("List", new { id = post.PostId })
+
 						</tr>
 					}
 				</tbody>

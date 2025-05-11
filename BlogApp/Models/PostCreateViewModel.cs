@@ -10,5 +10,6 @@ namespace BlogApp.Models
         public string? Description { get; set; }
         public string? Url { get; set; }
         public bool IsActive { get; set; }
+        public List<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

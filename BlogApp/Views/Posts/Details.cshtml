@@ -7,6 +7,9 @@
 			<div class="card bg-transparent border-0 mb-3">
 				<div class="row">
 					<div class="col-4">
+						<ul class="list-inline">
+							<li class="list-inline-item">Publisher : <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.User.UserName">@Model.User.UserName</a></li>
+						</ul>
 						<img src="~/img/@Model.Image" class="img-fluid rounded" />
 					</div>
 					<div class="col-8">
@@ -33,7 +36,7 @@
 									<img src="/img/@comment.User.Image" class="avatar rounded-circle float-start me-3" 
 									style="width: 3rem; height: 3rem; object-fit:cover"/>
 									<div class="mb-2">
-										<h6 class="mb-0">@comment.User.UserName</h6>
+										<h6 class="mb-0"><a asp-controller="Users" asp-action="Profile" asp-route-username="@comment.User.UserName">@comment.User.UserName</a></h6>
 										<small class="text-muted">@comment.PublishedOn.ToLocalTime()</small>
 										<p>@comment.Text</p>
 									</div>
